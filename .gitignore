@@ -1,3 +1,17 @@
+examples/Img1.png
+examples/Img2.png
+examples/demo/Img1.png
+examples/demo/Img2.png
+examples/demo/Img3.png
+examples/demo/Img4.png
+examples/demo/collected/
+examples/demo/collected_2/
+examples/demo/collected_matterport_shu/
+examples/demo/imgs/
+
+
+
+
 examples/demo/index.html?pli=1
 examples/demo/shubodh_dataset/
 examples/demo/url?q=https:%2F%2Fconsole.cloud.google.com%2Fstorage%2Fbrowser%2F3dsemantics%2FnoXYZ%2F
@@ -22,7 +36,7 @@ npz/
 *.npy
 dev/transfer.c
 *.jpg
-*.png
+#*.png
 *.bmp
 *.bak
 *.zip
