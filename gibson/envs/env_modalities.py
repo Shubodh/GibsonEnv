@@ -7,7 +7,9 @@ import gibson
 from gym import error
 from gym.utils import seeding
 from transforms3d import quaternions
+
 from gibson.envs.env_ui import *
+
 import pybullet as p
 import pybullet_data
 from tqdm import *
@@ -466,6 +468,16 @@ class CameraRobotEnv(BaseRobotEnv):
 
         for component in self.UI.components:
             self.UI.update_view(self.render_component(component), component)
+
+    #new function shubodh
+    def generate_images_two(self, time_now, pose):
+
+        self.UI.refresh()
+
+        for component in self.UI.components:
+            self.UI.generate_images(time_now, self.render_component(component), component, pose)
+
+            print("exporting_two images and pose information")
 
     def render_to_webUI(self):
         '''Works for different UI: UI_SIX, UI_FOUR, UI_TWO

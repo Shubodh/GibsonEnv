@@ -1,5 +1,5 @@
 import gym
-#import pygame
+import pygame
 import sys
 import time
 import matplotlib
@@ -7,6 +7,8 @@ import time
 import pygame
 import pybullet as p
 from gibson.core.render.profiler import Profiler
+
+from gibson.envs.env_ui import *
 '''
 try:
     matplotlib.use('GTK3Agg')
@@ -26,6 +28,8 @@ def display_arr(screen, arr, video_size, transpose):
     arr = 255.0 * (arr - arr_min) / (arr_max - arr_min)
     pyg_img = pygame.surfarray.make_surface(arr.swapaxes(0, 1) if transpose else arr)
     pyg_img = pygame.transform.scale(pyg_img, video_size)
+
+    # pygame.image.save(pyg_img, "img_gibs.jpg")
     screen.blit(pyg_img, (0,0))
 
 def play(env, transpose=True, zoom=None, callback=None, keys_to_action=None):
@@ -116,22 +120,35 @@ def play(env, transpose=True, zoom=None, callback=None, keys_to_action=None):
                 obs, rew, env_done, info = env.step(action)
                 record_total += time.time() - start
                 record_num += 1
-            #print(info['sensor'])
+            # print(info['sensor'])
             print("Play mode: reward %f" % rew)
+            # print("hello there 1")
+            
         for p_key in pressed_keys:
             action = keys_to_action[(p_key, )]
             prev_obs = obs
             with Profiler("Play Env: step"):
                 start = time.time()
                 obs, rew, env_done, info = env.step(action)
+                print(dir(obs))
                 record_total += time.time() - start
                 record_num += 1
             print("Play mode: reward %f" % rew)
+            # print("hello there 2")
+
+            time_now = time.time()
+
+        
+            env.generate_images_two(time_now,[env.robot.get_position(), env.robot.get_orientation()])
+            print("o")
+
         if callback is not None:
             callback(prev_obs, obs, action, rew, env_done, info)
         # process pygame events
         key_codes = env.get_key_pressed(relevant_keys)
-        #print("Key codes", key_codes)
+        print("Key codes", key_codes)
+        # print("hello there 3")
+
         pressed_keys = []
 
         for key in key_codes:
@@ -139,12 +156,23 @@ def play(env, transpose=True, zoom=None, callback=None, keys_to_action=None):
                 do_restart = True
             if key == ord('j') and key not in last_keys:
                 env.robot.turn_left()
+                # time_now = time.time()
+                # env.generate_images_two(time_now,[env.robot.get_position(), env.robot.get_orientation()])
+
             if key == ord('l') and key not in last_keys:
                 env.robot.turn_right()
+                # time_now = time.time()
+                # env.generate_images_two(time_now,[env.robot.get_position(), env.robot.get_orientation()])
             if key == ord('i') and key not in last_keys:
                 env.robot.move_forward()
+                time_now = time.time()
+                env.generate_images_two(time_now,[env.robot.get_position(), env.robot.get_orientation()])
+
             if key == ord('k') and key not in last_keys:
                 env.robot.move_backward()
+                time_now = time.time()
+                env.generate_images_two(time_now,[env.robot.get_position(), env.robot.get_orientation()])
+                
             if key not in relevant_keys:
                 continue
             pressed_keys.append(key) 

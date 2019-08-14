@@ -1,3 +1,6 @@
+# import sys
+# sys.path.insert(0, '/home/tushar/codes/GibsonEnv')
+
 from gibson.envs.husky_env import HuskyNavigateEnv
 from gibson.utils.play import play
 import argparse

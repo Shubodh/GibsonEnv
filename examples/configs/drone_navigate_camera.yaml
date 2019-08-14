@@ -10,8 +10,10 @@ is_discrete: false
 use_filler: true
 display_ui: true
 show_diagnostics: false
-ui_num: 2
-ui_components: [RGB_FILLED, DEPTH]
+ui_num: 3
+# ui_num: 2
+# ui_components: [RGB_FILLED, DEPTH]
+ui_components: [RGB_FILLED, DEPTH, SEMANTICS]
 random:
   random_initial_pose : false
   random_target_pose : false
@@ -20,7 +22,8 @@ random:
   random_init_z_range: [-0.1, 0.1]
   random_init_rot_range: [-0.1, 0.1]
 
-output: [nonviz_sensor, rgb_filled, depth]
+# output: [nonviz_sensor, rgb_filled]
+output: [nonviz_sensor, rgb_filled, depth,semantics]
 resolution: 256
 
 speed:

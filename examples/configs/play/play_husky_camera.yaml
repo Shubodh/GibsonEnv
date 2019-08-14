@@ -1,17 +1,19 @@
 envname: HuskyNavigateEnv
-model_id: space7
+model_id: space7 #house13
 target_orn: [0, 0, 1.57]
 target_pos: [-14.3, 45.07, 0.5]
-initial_orn: [0, 0, 4.71]
-initial_pos: [-14.3, 5, 1.2]
+initial_orn: [0, 0, 4.71] #in radian
+initial_pos: [-14.3, 10, 1.2]
 fov: 1.57
 is_discrete: true
 
 use_filler: true
 display_ui: true
-show_diagnostics: true
+show_diagnostics: false
+# ui_num: 3
 ui_num: 2
-ui_components: [RGB_FILLED, DEPTH]
+# ui_components: [RGB_FILLED, DEPTH , SEMANTICS]
+ui_components: [RGB_FILLED, DEPTH ]
 random:
   random_initial_pose : false
   random_target_pose : false
@@ -20,6 +22,7 @@ random:
   random_init_z_range: [-0.1, 0.1]
   random_init_rot_range: [-0.1, 0.1]
 
+# output: [nonviz_sensor, rgb_filled, depth, semantics]
 output: [nonviz_sensor, rgb_filled, depth]
 resolution: 256
 
@@ -29,4 +32,5 @@ speed:
 
 mode: gui #gui|headless
 verbose: false
-#fast_lq_render: true
+# semantic_source: 2 # Matterport 3D
+# semantic_color: 1 # Randoms

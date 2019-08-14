@@ -46,6 +46,7 @@ class SimpleUI():
         self.record_root = None
         self.port = port
         self.nframe = 0
+        self.nframe_two = 0
         self.save_first = save_first
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.PUB)
@@ -75,6 +76,51 @@ class SimpleUI():
                     self.POS[index][0],
                     self.POS[index][1])
                 return
+
+    #New function shubodh
+    def generate_images(self, time_now, view, tag,pose):
+        print("EXPORTING image") 
+        assert(tag in self.components), "Invalid view tag " + view
+        # self.nframe_two = 0
+        self.nframe_two += 1
+        if self.nframe_two <= 1000000000:
+            import scipy.misc
+            img = np.zeros((view.shape[0], view.shape[1], 3))
+            img[:, :, :] = view
+
+            ###for saving 2 images:
+            # scipy.misc.imsave("Image%d%d.png" % self.nframe_two % time_now, img)
+            # scipy.misc.imsave("Imageeg%d.png" % self.nframe_two, img)
+            if self.nframe_two % 2 == 0:
+                nframe_two_a = 2
+            else:
+                nframe_two_a = 1            
+            # scipy.misc.imsave("Image%dabc%d.png" % (nframe_two_a, time_now), img)
+            #scipy.misc.imsave("collected/Image%d_%d.png" % (nframe_two_a, time_now), img)
+            # else:
+            #     scipy.misc.imsave("Image_d%d.png" % time_now, img)
+
+            # #####added by Gourav for saving 3 images(Depth,RGB,Semantics)
+            # if self.nframe_two % 3 == 0:
+            #     nframe_two_a = 3
+            # elif self.nframe_two % 3 == 1:
+            #     nframe_two_a = 2
+            # else:
+            #     nframe_two_a = 1    
+
+            #The line below is added by gaurav comment it before running your experiement 
+            # Done change this add another line if you wan6
+            # scipy.misc.imsave("collected/Image%dabc%d.png" % (nframe_two_a, time_now), img)
+            
+            # scipy.misc.imsave("collected_2/Image%dabc%d.png" % (nframe_two_a, time_now), img)
+            if nframe_two_a == 2:
+                with open("/home/tushar/codes/GibsonEnv/aug14_collected/poses.txt","a") as poseFile:
+                    a = pose[0].tolist()
+                    b = pose[1].tolist()
+                    poseFile.write(str(a) + '/' + str(b) + '/')
+                    poseFile.write("Image%dabc%d.png \n" % (nframe_two_a, time_now))
+            scipy.misc.imsave("/home/tushar/codes/GibsonEnv/aug14_collected/Image%d_%d.png" % (nframe_two_a, time_now), img)
+
 
     def _add_image(self, img, x, y):
         #self.screen.blit(img, (x, y))
