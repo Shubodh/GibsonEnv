@@ -114,12 +114,12 @@ class SimpleUI():
             
             # scipy.misc.imsave("collected_2/Image%dabc%d.png" % (nframe_two_a, time_now), img)
             if nframe_two_a == 2:
-                with open("/home/tushar/codes/GibsonEnv/aug14_collected/poses.txt","a") as poseFile:
+                with open("/home/tushar/codes/GibsonEnv/data_space3/poses.txt","a") as poseFile:
                     a = pose[0].tolist()
                     b = pose[1].tolist()
                     poseFile.write(str(a) + '/' + str(b) + '/')
                     poseFile.write("Image%dabc%d.png \n" % (nframe_two_a, time_now))
-            scipy.misc.imsave("/home/tushar/codes/GibsonEnv/aug14_collected/Image%d_%d.png" % (nframe_two_a, time_now), img)
+            scipy.misc.imsave("/home/tushar/codes/GibsonEnv/data_space3/Image%d_%d.png" % (nframe_two_a, time_now), img)
 
 
     def _add_image(self, img, x, y):
